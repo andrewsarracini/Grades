@@ -1,3 +1,4 @@
+from turtle import width
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -62,10 +63,10 @@ Y4 = [6, 11, 10, 12, 12, 11, 11, 12, np.NaN, np.NaN]
 Y5 = [12, 10, 11, 11, 12, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN]
 
 '''Making a histogram'''
-ax1.hist(Y1)
-ax2.hist(Y2)
-ax3.hist(Y3)
-ax4.hist(Y4)
-ax5.hist(Y5)
+ax1.hist(Y1, width=0.75, edgecolor='k')
+ax2.hist(Y2, width=0.75, edgecolor='k')
+ax3.hist(Y3, width=0.75, edgecolor='k')
+ax4.hist(Y4, width=0.75, edgecolor='k')
+ax5.hist(Y5, width=0.75, edgecolor='k')
 
 plt.show()
