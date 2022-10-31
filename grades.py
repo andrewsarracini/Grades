@@ -1,4 +1,5 @@
 from turtle import width
+from matplotlib import axes
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -58,15 +59,27 @@ fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5, 1, sharex=True, sharey=True)
 
 Y1 = [8, 3, 6, 0, 8, 6, 5, 4, 3, 6]
 Y2 = [9, 10, 11, 11, 8, 9, 8, 8, 9, 3]
-Y3 = [4, 8, 7, 8, 11, 7, 9, 11, 11, np.NaN]
-Y4 = [6, 11, 10, 12, 12, 11, 11, 12, np.NaN, np.NaN]
-Y5 = [12, 10, 11, 11, 12, np.NaN, np.NaN, np.NaN, np.NaN, np.NaN]
+Y3 = [4, 8, 7, 8, 11, 7, 9, 11, 11]
+Y4 = [6, 11, 10, 12, 12, 11, 11, 12]
+Y5 = [12, 10, 11, 11, 12]
 
-'''Making a histogram'''
-ax1.hist(Y1, width=0.75, edgecolor='k')
-ax2.hist(Y2, width=0.75, edgecolor='k')
-ax3.hist(Y3, width=0.75, edgecolor='k')
-ax4.hist(Y4, width=0.75, edgecolor='k')
-ax5.hist(Y5, width=0.75, edgecolor='k')
+'''Making a *better* histogram with np.bincount'''
+
+ax1.hist(Y1, width=0.4, bins=np.arange(14), edgecolor='k')
+ax1.set_title('Year 1')
+ax2.hist(Y2, width=0.4, bins=np.arange(14), edgecolor='k')
+ax2.set_title('Year 2')
+ax3.hist(Y3, width=0.4, bins=np.arange(14), edgecolor='k')
+ax3.set_title('Year 3')
+ax4.hist(Y4, width=0.4, bins=np.arange(14), edgecolor='k')
+ax4.set_title('Year 4')
+ax5.hist(Y5, width=0.4, bins=np.arange(14), edgecolor='k')
+ax5.set_title('Year 5')
+
+# ax1.bar(Y1, np.bincount(Y1), width=0.5, align='center', edgecolor='k')
+# ax2.bar(Y2, np.bincount(Y2), width=0.5, align='center', edgecolor='k')
+# ax3.bar(Y3, np.bincount(Y3), width=0.5, align='center', edgecolor='k')
+# ax4.bar(Y4, np.bincount(Y4), width=0.5, align='center', edgecolor='k')
+# ax5.bar(Y5, np.bincount(Y5), width=0.5, align='center', edgecolor='k')
 
 plt.show()
