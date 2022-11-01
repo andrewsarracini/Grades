@@ -1,3 +1,4 @@
+from re import S
 from turtle import width
 from matplotlib import axes
 import pandas as pd
@@ -51,8 +52,7 @@ total_avg = (grades_df['First Year'].sum() + grades_df['Second Year'].sum() + gr
 # Y4_sem2 = [12, 11, 11, 12]
 # Y5_sem1 = [12, 10, 11, 11]
 
-# fig, ((ax1, ax2), (ax3, ax4), (ax5, ax6),
-#       (ax7, ax8), (ax9, ax10)) = plt.subplots(5, 2, sharex=True, sharey=True)
+# fig, ((ax1, ax2), (ax3, ax4), (ax5, ax6), (ax7, ax8), (ax9, ax10)) = plt.subplots(5, 2, sharex=True, sharey=True)
 
 ''' Separating the data by academic year'''
 fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5, 1, sharex=True, sharey=True)
@@ -75,11 +75,15 @@ ax4.hist(Y4, width=0.4, bins=np.arange(14), edgecolor='k')
 ax4.set_title('Year 4')
 ax5.hist(Y5, width=0.4, bins=np.arange(14), edgecolor='k')
 ax5.set_title('Year 5')
+ax5.set_xlabel('Grades')
 
-# ax1.bar(Y1, np.bincount(Y1), width=0.5, align='center', edgecolor='k')
-# ax2.bar(Y2, np.bincount(Y2), width=0.5, align='center', edgecolor='k')
-# ax3.bar(Y3, np.bincount(Y3), width=0.5, align='center', edgecolor='k')
-# ax4.bar(Y4, np.bincount(Y4), width=0.5, align='center', edgecolor='k')
-# ax5.bar(Y5, np.bincount(Y5), width=0.5, align='center', edgecolor='k')
+x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+labels = ['F', 'D-', 'D', 'D+', 'C-', 'C',
+          'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+']
+
+ax5.set_xticks(x, labels)
+
+# for ax in ax1, ax2, ax3, ax4, ax5:
+#     ax.set_xlabel('grades')
 
 plt.show()
