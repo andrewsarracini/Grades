@@ -42,8 +42,8 @@ sem_avgs = [np.average(sem) for sem in sem_grades]
 print(sem_avgs)
 
 ''' Separating the data by academic year'''
-fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(
-    5, 1, sharex=True, sharey=True)
+fig, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(
+    6, 1, sharex=True, sharey=True)
 
 Y1 = sem_grades[0] + sem_grades[1]
 Y2 = sem_grades[2] + sem_grades[3]
@@ -65,14 +65,23 @@ ax5.hist(Y5, width=0.4, bins=np.arange(14), edgecolor='k')
 ax5.set_title('Year 5')
 ax5.set_xlabel('Grades')
 
-# ax6.scatter()
-
 x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 labels = ['F', 'D-', 'D', 'D+', 'C-', 'C',
           'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+']
 
 ax5.set_xticks(x, labels)
 
-fig.tight_layout()
+time_series = ['Year 1, Sem 1',
+               'Year 1, Sem 2',
+               'Year 2, Sem 1',
+               'Year 2, Sem 2',
+               'Year 3, Sem 1',
+               'Year 3, Sem 2',
+               'Year 4, Sem 1',
+               'Year 4, Sem 2',
+               'Year 5, Sem 1 + Postbac']
+
+# Need to change the axis to not be shared for ax6, or make a new scatter entirely
+ax6.scatter(time_series, sem_avgs)
 
 plt.show()
