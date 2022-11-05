@@ -1,9 +1,13 @@
-from re import S
-from turtle import width
-from matplotlib import axes
+from matplotlib import axes, colors
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.collections import LineCollection
+from matplotlib.colors import ListedColormap, BoundaryNorm
+from matplotlib import colors
+
+
+from pyparsing import col, line
 
 my_dict = {'First Year': [8, 3, 6, 0, 8, 6, 5, 4, 3, 6],
            'Second Year': [9, 10, 11, 11, 8, 9, 8, 8, 9, 3],
@@ -26,7 +30,6 @@ fif_avg = grades_df['Fifth Year'].mean()
 total_avg = (grades_df['First Year'].sum() + grades_df['Second Year'].sum() + grades_df['Third Year'].sum() +
              grades_df['Fourth Year'].sum() + grades_df['Fifth Year'].sum() + grades_df['Postbac'].sum()) / 42
 
-
 ''' Separating the data by semester, 2D array'''
 sem_grades = [[8, 3, 6, 0, 8],
               [6, 5, 4, 3, 6],
@@ -39,11 +42,12 @@ sem_grades = [[8, 3, 6, 0, 8],
               [12, 10, 11, 11, 12]]
 
 sem_avgs = [np.average(sem) for sem in sem_grades]
-print(sem_avgs)
+sem_sum = [sum(grade) for grade in sem_grades]
+
 
 ''' Separating the data by academic year'''
-fig, (ax1, ax2, ax3, ax4, ax5, ax6) = plt.subplots(
-    6, 1, sharex=True, sharey=True)
+fig, ax = plt.subplots(
+    5, 1, sharex=True, sharey=True)
 
 Y1 = sem_grades[0] + sem_grades[1]
 Y2 = sem_grades[2] + sem_grades[3]
@@ -51,25 +55,38 @@ Y3 = sem_grades[4] + sem_grades[5]
 Y4 = sem_grades[6] + sem_grades[7]
 Y5 = sem_grades[8]
 
-'''Making a *better* histogram'''
-
-ax1.hist(Y1, width=0.4, bins=np.arange(14), edgecolor='k')
-ax1.set_title('Year 1')
-ax2.hist(Y2, width=0.4, bins=np.arange(14), edgecolor='k')
-ax2.set_title('Year 2')
-ax3.hist(Y3, width=0.4, bins=np.arange(14), edgecolor='k')
-ax3.set_title('Year 3')
-ax4.hist(Y4, width=0.4, bins=np.arange(14), edgecolor='k')
-ax4.set_title('Year 4')
-ax5.hist(Y5, width=0.4, bins=np.arange(14), edgecolor='k')
-ax5.set_title('Year 5')
-ax5.set_xlabel('Grades')
+''' Histograms good for visualizing, but my gradient won't work '''
+ax[0].hist(
+    Y1, width=0.4, bins=np.arange(14), edgecolor='k')
+ax[0].set_title('Year 1')
+ax[1].hist(
+    Y2, width=0.4, bins=np.arange(14), edgecolor='k')
+ax[1].set_title('Year 2')
+ax[2].hist(
+    Y3, width=0.4, bins=np.arange(14), edgecolor='k')
+ax[2].set_title('Year 3')
+ax[3].hist(
+    Y4, width=0.4, bins=np.arange(14), edgecolor='k')
+ax[3].set_title('Year 4')
+ax[4].hist(
+    Y5, width=0.4, bins=np.arange(14), edgecolor='k')
+ax[4].set_title('Year 5')
+ax[4].set_xlabel('Grades')
 
 x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 labels = ['F', 'D-', 'D', 'D+', 'C-', 'C',
           'C+', 'B-', 'B', 'B+', 'A-', 'A', 'A+']
 
-ax5.set_xticks(x, labels)
+ax[4].set_xticks(x, labels)
+
+plt.show()
+
+# ''' Bar Graphs might allow me to add a gradient'''
+# ax[0].bar(Y1, [1, 0, 0, 2, 1, 1, 3, 0, 2, 0, 0, 0, 0],
+#           width=0.4, align='center')
+# ax[0].set_title('Year 1')
+
+# plt.show()
 
 time_series = ['Year 1, Sem 1',
                'Year 1, Sem 2',
@@ -81,7 +98,15 @@ time_series = ['Year 1, Sem 1',
                'Year 4, Sem 2',
                'Year 5, Sem 1 + Postbac']
 
-# Need to change the axis to not be shared for ax6, or make a new scatter entirely
-ax6.scatter(time_series, sem_avgs)
+'''New scatter plot showing the progression of semester averages'''
+fig, ax = plt.subplots()
+
+
+plt.plot(time_series, sem_avgs)
+
+plt.xticks(rotation=90)
+plt.yticks(np.arange(4, 13, step=1))
+plt.xlabel('Academic Semester')
+plt.ylabel('Grade point Average')
 
 plt.show()
