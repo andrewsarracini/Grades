@@ -30,7 +30,7 @@ fif_avg = grades_df['Fifth Year'].mean()
 total_avg = (grades_df['First Year'].sum() + grades_df['Second Year'].sum() + grades_df['Third Year'].sum() +
              grades_df['Fourth Year'].sum() + grades_df['Fifth Year'].sum() + grades_df['Postbac'].sum()) / 42
 
-''' Separating the data by semester, 2D array'''
+''' Separating the data by semester, 2D array '''
 sem_grades = [[8, 3, 6, 0, 8],
               [6, 5, 4, 3, 6],
               [9, 10, 11, 11, 8],
@@ -45,7 +45,7 @@ sem_avgs = [np.average(sem) for sem in sem_grades]
 sem_sum = [sum(grade) for grade in sem_grades]
 
 
-''' Separating the data by academic year'''
+''' Separating the data by academic year '''
 fig, ax = plt.subplots(
     5, 1, sharex=True, sharey=True)
 
@@ -88,6 +88,8 @@ plt.show()
 
 # plt.show()
 
+''' New scatter plot showing the progression of semester averages '''
+
 time_series = ['Year 1, Sem 1',
                'Year 1, Sem 2',
                'Year 2, Sem 1',
@@ -98,15 +100,33 @@ time_series = ['Year 1, Sem 1',
                'Year 4, Sem 2',
                'Year 5, Sem 1 + Postbac']
 
-'''New scatter plot showing the progression of semester averages'''
+
+df = pd.DataFrame(dict(time_series=time_series, sem_avgs=sem_avgs))
+print(df)
+
 fig, ax = plt.subplots()
 
+''' This is a way to map each point to certain colours, but the line connecting the points won't show up '''
 
-plt.plot(time_series, sem_avgs)
+# colours = {'Year 1, Sem 1': 'red', 'Year 1, Sem 2': 'red', 'Year 2, Sem 1': 'orange', 'Year 2, Sem 2': 'orange', 'Year 3, Sem 1': 'gold', 'Year 3, Sem 2': 'gold',
+#            'Year 4, Sem 1': 'cornflowerblue', 'Year 4, Sem 2': 'cornflowerblue', 'Year 5, Sem 1 + Postbac': 'green'}
+
+# grouped = df.groupby('time_series')
+# for key, group in grouped:
+#     group.plot(ax=ax, kind='scatter', x='time_series',
+#                y='sem_avgs', label=key, color=colours[key])
+
+
+''' This method is more simple, but it connects the points '''
+''' Still working on colour-coding with plt.plot though '''
+
+plt.plot(time_series, sem_avgs, marker='.', markersize=10)
+
 
 plt.xticks(rotation=90)
 plt.yticks(np.arange(4, 13, step=1))
 plt.xlabel('Academic Semester')
 plt.ylabel('Grade point Average')
+plt.title('Post Secondary GPA')
 
 plt.show()
