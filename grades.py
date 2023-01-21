@@ -55,7 +55,7 @@ Y3 = sem_grades[4] + sem_grades[5]
 Y4 = sem_grades[6] + sem_grades[7]
 Y5 = sem_grades[8]
 
-''' Histograms good for visualizing, but my gradient won't work '''
+''' Histograms prove better for visualizing this, Gradient still not working'''
 ax[0].hist(
     Y1, width=0.4, bins=np.arange(14), edgecolor='k')
 ax[0].set_title('Year 1')
@@ -79,9 +79,21 @@ labels = ['F', 'D-', 'D', 'D+', 'C-', 'C',
 
 ax[4].set_xticks(x, labels)
 
-plt.show()
 
-# ''' Bar Graphs might allow me to add a gradient'''
+''' Experiment -- adding more labels for increased clarity'''
+''' Current issues: displaying the associated grade, instead of bar count **NEEDS FIXING** '''
+''' Commenting out until resolved '''
+# rects = ax[0].patches
+# labels = range(len(rects))
+
+# for rect, label in zip(rects, labels):
+#     height = rect.get_height()
+#     ax[0].text(rect.get_x() + rect.get_width() / 2,
+#                height, label, ha='center', va='bottom')
+
+# plt.show()
+
+''' Bar Graphs might allow me to add a gradient'''
 # ax[0].bar(Y1, [1, 0, 0, 2, 1, 1, 3, 0, 2, 0, 0, 0, 0],
 #           width=0.4, align='center')
 # ax[0].set_title('Year 1')
